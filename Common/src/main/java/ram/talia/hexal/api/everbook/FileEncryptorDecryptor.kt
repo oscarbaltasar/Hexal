@@ -3,6 +3,8 @@ package ram.talia.hexal.api.everbook
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo
 import java.io.*
+import java.io.File
+import java.io.FileWriter
 import java.nio.ByteBuffer
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
@@ -24,52 +26,34 @@ internal class FileEncrypterDecrypter(private val secretKey: SecretKey, cipher: 
 
 	@Throws(InvalidKeyException::class, IOException::class)
 	fun encrypt(content: String, file: File) {
-		cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-		val iv = cipher.iv
-		file.absoluteFile.parentFile.mkdirs()
-		file.createNewFile()
-		FileOutputStream(file).use { fileOut ->
-			CipherOutputStream(fileOut, cipher).use { cipherOut ->
-				fileOut.write(iv)
-				cipherOut.write(content.toByteArray())
-			}
-		}
+		val fileWriter = FileWriter(file)
+		fileWriter.write(content)
+		fileWriter.close()
 	}
 
 	@Throws(InvalidKeyException::class, IOException::class)
 	fun encrypt(content: CompoundTag, file: File) {
-		cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-		val iv = cipher.iv
 		file.absoluteFile.parentFile.mkdirs()
 		file.createNewFile()
 		FileOutputStream(file).use { fileOut ->
-			fileOut.write(iv)
 
-			NbtIo.writeCompressed(content, CipherOutputStream(fileOut, cipher))
+			NbtIo.writeCompressed(content,fileOut)
 		}
 	}
 
 	@Throws(InvalidAlgorithmParameterException::class, InvalidKeyException::class, IOException::class)
 	fun decrypt(file: File): String {
-		var content: String
-		FileInputStream(file).use { fileIn ->
-			val fileIv = ByteArray(16)
-			fileIn.read(fileIv)
-			cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(fileIv))
-			CipherInputStream(fileIn, cipher).use { cipherIn ->
-				InputStreamReader(cipherIn).use { inputReader ->
-					BufferedReader(inputReader).use { reader ->
-						val sb = StringBuilder()
-						var line: String?
-						while (reader.readLine().also { line = it } != null) {
-							sb.append(line)
-						}
-						content = sb.toString()
-					}
-				}
+		val stringBuilder = StringBuilder()
+
+		val bufferedReader = BufferedReader(file.reader())
+
+		bufferedReader.useLines { lines ->
+			lines.forEach { line ->
+				stringBuilder.append(line).append("\n")
 			}
 		}
-		return content
+
+    	return stringBuilder.toString()
 	}
 
 	@Throws(InvalidAlgorithmParameterException::class, InvalidKeyException::class, IOException::class)
@@ -80,15 +64,10 @@ internal class FileEncrypterDecrypter(private val secretKey: SecretKey, cipher: 
 			return null
 
 		FileInputStream(file).use { fileIn ->
-			val fileIv = ByteArray(16)
-			fileIn.read(fileIv)
-
-			cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(fileIv))
-
 			try {
-				content = NbtIo.readCompressed(CipherInputStream(fileIn, cipher))
+				content = NbtIo.readCompressed(fileIn)
 			} catch (e: ZipException) {
-				content = null // HACKS - this makes it so that if the player ends up with a compound file encrypted with the wrong key it doesn't crash
+				content = null
 			}
 		}
 
