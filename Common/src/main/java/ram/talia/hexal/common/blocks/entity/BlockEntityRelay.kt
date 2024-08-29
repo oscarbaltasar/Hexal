@@ -30,16 +30,10 @@ import ram.talia.hexal.api.linkable.LinkableTypes
 import ram.talia.hexal.api.linkable.ServerLinkableHolder
 import ram.talia.hexal.common.blocks.BlockRelay
 import ram.talia.hexal.common.lib.HexalBlockEntities
-import software.bernie.geckolib.animatable.GeoBlockEntity
-import software.bernie.geckolib.core.animatable.GeoAnimatable
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
-import software.bernie.geckolib.core.animation.*
-import software.bernie.geckolib.core.`object`.PlayState
-import software.bernie.geckolib.util.GeckoLibUtil
 import java.util.*
 import kotlin.math.min
 
-class BlockEntityRelay(pos: BlockPos, val state: BlockState) : HexBlockEntity(HexalBlockEntities.RELAY, pos, state), ILinkable, ILinkable.IRenderCentre, GeoBlockEntity {
+class BlockEntityRelay(pos: BlockPos, val state: BlockState) : HexBlockEntity(HexalBlockEntities.RELAY, pos, state), ILinkable, ILinkable.IRenderCentre {
     val pos: BlockPos = pos.immutable()
 
     private val random = RandomSource.create()
@@ -246,39 +240,11 @@ class BlockEntityRelay(pos: BlockPos, val state: BlockState) : HexBlockEntity(He
         }
 
     override fun renderCentre(other: ILinkable.IRenderCentre, recursioning: Boolean): Vec3 {
-        return Vec3.atCenterOf(pos) + getBobberPosition()
+        return Vec3.atCenterOf(pos)
     }
 
     override fun pigment(): FrozenPigment = relayNetwork.pigment
 
-    //endregion
-
-    //region IAnimatable
-    private val instanceCache: AnimatableInstanceCache = GeckoLibUtil.createInstanceCache(this)
-
-    override fun getAnimatableInstanceCache(): AnimatableInstanceCache = instanceCache
-
-    override fun registerControllers(data: AnimatableManager.ControllerRegistrar) {
-        data.add(AnimationController(this, "controller", 0, this::predicate))
-    }
-
-
-
-    private fun <E : GeoAnimatable> predicate(event: AnimationState<E>): PlayState {
-        event.controller.setAnimation(
-                RawAnimation.begin()
-                    .then("animation.model.place", Animation.LoopType.PLAY_ONCE)
-                    .then("animation.model.idle", Animation.LoopType.LOOP)
-        )
-
-        return PlayState.CONTINUE
-    }
-
-    private fun getBobberPosition(): Vec3 {
-        val manager = instanceCache.getManagerForId<BlockEntityRelay>(0)
-        val bobber = manager.boneSnapshotCollection["Bobber"] ?: return Vec3.ZERO
-        return (bobber.offsetY + 10) / 16.0 * Vec3.atLowerCornerOf(state.getValue(BlockRelay.FACING).normal)
-    }
     //endregion
 
     override fun loadModData(tag: CompoundTag) {

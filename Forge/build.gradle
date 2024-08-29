@@ -155,8 +155,6 @@ repositories {
         url = "https://modmaven.dev"
     }
 
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
-
     maven {
         name = 'Kotlin for Forge'
         url = 'https://thedarkcolour.github.io/KotlinForForge/'
@@ -186,9 +184,6 @@ dependencies {
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion-FORGE-SNAPSHOT")
 
     implementation fg.deobf("top.theillusivec4.caelus:caelus-forge:$caelusVersion")
-
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-$minecraftVersion:$geckolibVersion")
-    implementation fg.deobf("com.eliotlash.mclib:mclib:20") // dependency of geckolib that isn't being transitivelyied properly
 
     // Optional interop
 
@@ -316,7 +311,6 @@ modrinth {
         required.project "paucal"
         required.project "patchouli"
         required.project "kotlin-for-forge"
-        required.project "geckolib"
     }
 }
 

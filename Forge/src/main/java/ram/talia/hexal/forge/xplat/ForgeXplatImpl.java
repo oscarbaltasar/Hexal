@@ -4,7 +4,6 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.msgs.IMessage;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.Packet;
@@ -49,7 +48,6 @@ import ram.talia.hexal.forge.eventhandlers.PlayerLinkstoreEventHandler;
 import ram.talia.hexal.forge.eventhandlers.WispCastingMangerEventHandler;
 import ram.talia.hexal.forge.network.ForgePacketHandler;
 import ram.talia.hexal.xplat.IXplatAbstractions;
-import software.bernie.example.client.renderer.item.JackInTheBoxRenderer;
 
 import java.util.List;
 import java.util.UUID;
@@ -209,15 +207,6 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
     public @NotNull Object getItemRelayRenderProvider() {
         return new IClientItemExtensions() {
-			private ItemRelayRenderer renderer;
-
-			@Override
-			public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-				if (this.renderer == null)
-					this.renderer = new ItemRelayRenderer();
-
-				return this.renderer;
-			}
 		};
     }
 
