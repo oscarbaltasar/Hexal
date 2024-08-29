@@ -60,10 +60,6 @@ class BlockMediafiedStorage(properties: Properties) : Block(properties), EntityB
         }
     }
 
-    override fun getRenderShape(blockState: BlockState): RenderShape {
-        return RenderShape.INVISIBLE
-    }
-
     override fun onRemove(blockState: BlockState, level: Level, pos: BlockPos, newState: BlockState, moved: Boolean) {
         if (!newState.`is`(this)) {
             val blockEntity = level.getBlockEntity(pos)

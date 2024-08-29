@@ -1,3 +1,11 @@
 {
-  "parent": "hexal:block/relay"
+  "parent": "hexal:block/relay",
+  "textures": {
+		"north": "hexal:block/relay_side",
+		"south": "hexal:block/relay_side",
+		"east": "hexal:block/relay_side",
+		"west": "hexal:block/relay_side",
+		"up": "hexal:block/relay_top",
+		"down": "hexal:block/relay_bottom"
+	}
 }

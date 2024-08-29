@@ -1,5 +1,11 @@
 {
+  "parent": "block/cube_all",
   "textures": {
-    "particle": "hexcasting:block/edified_planks"
+    "north": "hexal:block/mediafied_storage_side",
+		"south": "hexal:block/mediafied_storage_side",
+		"east": "hexal:block/mediafied_storage_side",
+		"west": "hexal:block/mediafied_storage_side",
+		"up": "hexal:block/mediafied_storage_top",
+		"down": "hexal:block/mediafied_storage_top"
   }
 }

@@ -42,8 +42,6 @@ class BlockRelay(properties: Properties) : Block(properties), EntityBlock, IForg
         return BlockEntityTicker(Companion::tick)
     }
 
-    override fun getRenderShape(state: BlockState) = RenderShape.ENTITYBLOCK_ANIMATED
-
     override fun getShape(blockState: BlockState, level: BlockGetter, pos: BlockPos, ctx: CollisionContext): VoxelShape {
         @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
         return when (blockState.getValue(FACING)) {
