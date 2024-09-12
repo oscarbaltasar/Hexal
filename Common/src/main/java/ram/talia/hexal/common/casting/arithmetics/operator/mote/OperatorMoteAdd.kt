@@ -5,11 +5,13 @@ import at.petrak.hexcasting.api.casting.arithmetic.predicates.IotaMultiPredicate
 import at.petrak.hexcasting.api.casting.arithmetic.predicates.IotaPredicate.ofType
 import at.petrak.hexcasting.api.casting.asActionResult
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
+import at.petrak.hexcasting.api.casting.eval.sideeffects.EvalSound
 import at.petrak.hexcasting.api.casting.eval.OperationResult
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
+import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import ram.talia.hexal.common.casting.arithmetics.operator.nextMote
 import ram.talia.hexal.common.lib.hex.HexalIotaTypes.MOTE
 
@@ -36,7 +38,23 @@ object OperatorMoteAdd : OperatorBasic(2, IotaMultiPredicate.all(ofType(MOTE))) 
         return listOfNotNull(absorber.copy())
     }
 
-    override fun operate(env: CastingEnvironment, image: CastingImage, continuation: SpellContinuation): OperationResult {
-        TODO("Not yet implemented")
+    /* Credits to @walksanatora on github for the fix.
+     * To be more specific, this fix can be originally found on: 
+     * https://github.com/walksanatora/Hexal/commit/c7d23c8d096e7192eea1163bdc494b7ccb30498b
+     */
+    override fun operate(
+        env: CastingEnvironment,
+        image: CastingImage,
+        continuation: SpellContinuation
+    ): OperationResult {
+        val stack = image.stack.toMutableList()
+        val input = mutableListOf(stack.removeFirst(),stack.removeFirst())
+        stack.addAll(apply(input,env))
+        return OperationResult(
+            image.copy(stack),
+            listOf(),
+            continuation,
+            HexEvalSounds.NORMAL_EXECUTE
+        )
     }
 }
