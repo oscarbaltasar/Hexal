@@ -19,7 +19,7 @@ class MishapStorageFull(val storage: UUID) : Mishap() {
 
     override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = error("full_storage")
 
-    override fun execute(ctx: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
+    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
         // get a random record from in the storage
         val allRecords = MediafiedItemManager.getAllRecords(storage) ?: return
         val index = allRecords.keys.randomOrNull() ?: return
@@ -30,18 +30,18 @@ class MishapStorageFull(val storage: UUID) : Mishap() {
         var maybePos: Vec3? = null
 
         for (i in 1..10) {
-            maybePos = ctx.mishapSprayPos() + Vec3(ctx.world.random.nextDouble(), ctx.world.random.nextDouble(), ctx.world.random.nextDouble())
-            if (!ctx.world.getBlockState(BlockPos.containing(maybePos)).isAir)
+            maybePos = env.mishapSprayPos() + Vec3(env.world.random.nextDouble(), env.world.random.nextDouble(), env.world.random.nextDouble())
+            if (!env.world.getBlockState(BlockPos.containing(maybePos)).isAir)
                 maybePos = null
             else
                 break
         }
 
-        val pos = maybePos ?: ctx.mishapSprayPos()
+        val pos = maybePos ?: env.mishapSprayPos()
 
         // drop the selected stack at the randomly selected position.
         for (itemStack in toDrop) {
-            ctx.world.addFreshEntity(ItemEntity(ctx.world, pos.x, pos.y, pos.z, itemStack))
+            env.world.addFreshEntity(ItemEntity(env.world, pos.x, pos.y, pos.z, itemStack))
         }
     }
 }

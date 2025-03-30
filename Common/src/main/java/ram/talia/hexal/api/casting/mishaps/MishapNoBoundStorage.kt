@@ -13,9 +13,9 @@ import net.minecraft.world.phys.Vec3
 import ram.talia.hexal.api.plus
 
 class MishapNoBoundStorage(val reason: String? = null) : Mishap() {
-    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.LIME)
+    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.LIME)
 
-    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = if (reason != null) error(reason) else error("no_bound_storage")
+    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = if (reason != null) error(reason) else error("no_bound_storage")
 
     override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
         val pos = env.mishapSprayPos()

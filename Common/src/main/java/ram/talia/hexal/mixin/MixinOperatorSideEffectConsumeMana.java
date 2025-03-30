@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -25,7 +26,7 @@ public abstract class MixinOperatorSideEffectConsumeMana {
 		at = @At(value = "HEAD"),
 		locals = LocalCapture.CAPTURE_FAILEXCEPTION, remap = false
 	)
-	private void performEffectWisp(CastingVM harness, CallbackInfoReturnable<Boolean> cir) {
+	private void performEffectWisp(CastingVM harness, CallbackInfo ci) {
 			this.harness = harness;
 		}
 

@@ -10,9 +10,9 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.DyeColor
 
 class MishapNonPlayer : Mishap() {
-	override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.LIGHT_BLUE)
+	override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.LIGHT_BLUE)
 
-	override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = error("non_player", actionName(errorCtx.name))
+	override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = error("non_player", actionName(errorCtx.name))
 
 	override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
 		env.caster?.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 60))

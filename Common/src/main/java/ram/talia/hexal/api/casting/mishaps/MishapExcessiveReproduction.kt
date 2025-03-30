@@ -10,9 +10,9 @@ import net.minecraft.world.item.DyeColor
 import ram.talia.hexal.common.entities.BaseCastingWisp
 
 class MishapExcessiveReproduction(val wisp: BaseCastingWisp) : Mishap() {
-    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.PINK)
+    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.PINK)
 
-    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = error("excessive_reproduction", wisp)
+    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = error("excessive_reproduction", wisp)
 
     override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
         env.world.sendParticles(ParticleTypes.HEART, wisp.position().x, wisp.position().y, wisp.position().z, 15, 0.5, 0.5, 0.5, 0.5)

@@ -31,10 +31,12 @@ class WispCastEnv(val wisp: BaseCastingWisp, level: ServerLevel) : CastingEnviro
 
     override fun mishapSprayPos(): Vec3 = wisp.position()
 
-    override fun extractMediaEnvironment(cost: Long): Long {
+    override fun extractMediaEnvironment(cost: Long, simulate: Boolean): Long {
         val mediaAvailable = wisp.media
         val mediaToTake: Long = cost.coerceAtMost(mediaAvailable)
-        wisp.addMedia(-mediaToTake)
+        if(!simulate) {
+            wisp.addMedia(-mediaToTake)
+        }
         return cost - mediaToTake
     }
 

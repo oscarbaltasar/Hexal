@@ -11,9 +11,9 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.DyeColor
 
 class MishapOthersWisp(val other: Player?) : Mishap() {
-	override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.BLACK)
+	override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.BLACK)
 
-	override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = error("others_wisp", other?.name ?: "Unowned")
+	override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = error("others_wisp", other?.name ?: "Unowned")
 
 	override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
 		env.caster?.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 60))

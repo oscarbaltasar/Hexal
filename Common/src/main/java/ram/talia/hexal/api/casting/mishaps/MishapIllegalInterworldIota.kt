@@ -14,9 +14,9 @@ import ram.talia.hexal.api.casting.iota.GateIota
 import ram.talia.hexal.api.casting.iota.MoteIota
 
 class MishapIllegalInterworldIota(val iota: Iota) : Mishap() {
-    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.GREEN)
+    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.GREEN)
 
-    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = error("illegal_interworld_iota", iota.display())
+    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = error("illegal_interworld_iota", iota.display())
 
     override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
         env.caster?.let { it.health /= 2 } // Bad but better than freaking TODO()

@@ -43,13 +43,13 @@ class EverbookPatternComponent : AbstractPatternComponent() {
 		indexNum = pagenum - 1
 	}
 
-	override fun getPatterns(lookup: UnaryOperator<IVariable>): List<Pair<HexPattern, HexCoord>> {
+	override fun getPatterns(lookup: UnaryOperator<IVariable>): List<HexPattern> {
 		val pattern = IClientXplatAbstractions.INSTANCE.getClientEverbookPattern(indexNum) ?: return listOf()
 
 		isMacro = IClientXplatAbstractions.INSTANCE.isClientEverbookMacro(pattern)
 		iota = IClientXplatAbstractions.INSTANCE.getClientEverbookIota(pattern)
 
-		return listOf(Pair(pattern, HexCoord.Origin))
+		return listOf(pattern)
 	}
 
 	override fun onDisplayed(context: IComponentRenderContext) {

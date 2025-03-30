@@ -10,9 +10,9 @@ import net.minecraft.world.level.Level
 import ram.talia.hexal.api.linkable.ILinkable
 
 class MishapNoLinked(val linkable: ILinkable) : Mishap() {
-    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.MAGENTA)
+    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.MAGENTA)
 
-    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component =
+    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component =
             error("no_links", linkable.toString())
 
     override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {

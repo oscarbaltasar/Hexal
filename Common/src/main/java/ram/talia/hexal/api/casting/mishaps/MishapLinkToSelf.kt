@@ -10,9 +10,9 @@ import net.minecraft.world.level.Level
 import ram.talia.hexal.api.linkable.ILinkable
 
 class MishapLinkToSelf(val linkable: ILinkable) : Mishap() {
-    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.YELLOW)
+    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment = dyeColor(DyeColor.YELLOW)
 
-    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Component = error("self_link", linkable.toString())
+    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Component = error("self_link", linkable.toString())
 
     override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {
         val pos = linkable.getPosition()
