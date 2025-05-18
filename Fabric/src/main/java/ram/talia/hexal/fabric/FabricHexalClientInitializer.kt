@@ -27,7 +27,5 @@ object FabricHexalClientInitializer : ClientModInitializer {
                 BlockEntityRendererRegistry.register(type, berp)
             }
         })
-
-        BlockEntityRenderers.register(HexalBlockEntities.RELAY) { BlockEntityRelayRenderer() }
     }
 }

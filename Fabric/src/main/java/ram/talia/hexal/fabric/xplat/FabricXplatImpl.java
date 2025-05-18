@@ -32,10 +32,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ram.talia.hexal.api.casting.wisp.WispCastingManager;
 import ram.talia.hexal.api.everbook.Everbook;
 import ram.talia.hexal.api.linkable.ILinkable;
 import ram.talia.hexal.api.linkable.PlayerLinkstore;
-import ram.talia.hexal.api.casting.wisp.WispCastingManager;
 import ram.talia.hexal.common.entities.BaseCastingWisp;
 import ram.talia.hexal.common.items.ItemRelay;
 import ram.talia.hexal.common.network.MsgAddRenderLinkS2C;
@@ -46,8 +46,6 @@ import ram.talia.hexal.fabric.cc.CCWispCastingManager;
 import ram.talia.hexal.fabric.cc.HexalCardinalComponents;
 import ram.talia.hexal.fabric.client.items.ItemRelayRenderer;
 import ram.talia.hexal.xplat.IXplatAbstractions;
-import software.bernie.example.client.renderer.item.JackInTheBoxRenderer;
-import software.bernie.geckolib.animatable.client.RenderProvider;
 
 import java.util.Collection;
 import java.util.List;
@@ -245,17 +243,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
     @Override
     public @NotNull Object getItemRelayRenderProvider() {
-        return new RenderProvider() {
-            private ItemRelayRenderer renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                if (this.renderer == null)
-                    this.renderer = new ItemRelayRenderer();
-
-                return this.renderer;
-            }
-        };
+        return null;
     }
 
     @Override

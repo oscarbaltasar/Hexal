@@ -84,23 +84,21 @@ dependencies {
     modImplementation("at.petra-k.hexcasting:hexcasting-fabric-$minecraftVersion:$hexcastingVersion") {
         exclude module: "phosphor"
     }
-    modImplementation "$modID:moreiotas-fabric-$minecraftVersion:$moreIotasVersion"
+    modImplementation include("$modID:moreiotas-fabric-$minecraftVersion:$moreIotasVersion")
     modImplementation "vazkii.patchouli:Patchouli:$minecraftVersion-$patchouliVersion-FABRIC-SNAPSHOT"
 
     modImplementation "me.zeroeightsix:fiber:$fiberVersion"
     include "me.zeroeightsix:fiber:$fiberVersion"
 
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:$cardinalComponentsVersion"
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:$cardinalComponentsVersion")
 //    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-util:$cardinalComponentsVersion"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:$cardinalComponentsVersion"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-item:$cardinalComponentsVersion"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-block:$cardinalComponentsVersion"
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:$cardinalComponentsVersion")
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-item:$cardinalComponentsVersion")
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-block:$cardinalComponentsVersion")
 
     modImplementation "$modID:serialization-hooks:$serializationHooksVersion"
     include "$modID:serialization-hooks:$serializationHooksVersion"
     implementation(include("com.github.LlamaLad7:MixinExtras:0.1.1"))
-
-    modImplementation "software.bernie.geckolib:geckolib-fabric-$minecraftVersion:$geckolibVersion"
 
     // Optional integrations
 
